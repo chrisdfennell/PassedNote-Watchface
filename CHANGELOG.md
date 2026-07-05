@@ -4,6 +4,18 @@ All notable changes to Passed Note are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-07-05
+
+### Fixed
+- **Legal pad setting reliably applies**: property reads now also accept Long
+  values from the settings editor (previously such values were silently
+  discarded and the paper stayed white). Note for simulator testing: the sim
+  saves chosen settings per app and they override the shipped defaults.
+
+### Changed
+- The legal pad is properly **yellow** now (deeper legal-pad tone instead of
+  the old pale cream).
+
 ## [1.0.2] - 2026-07-05
 
 The layout settles down.

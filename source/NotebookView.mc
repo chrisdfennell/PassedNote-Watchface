@@ -74,8 +74,8 @@ class NotebookView extends WatchUi.WatchFace {
     private const C_AOD_INK    = 0x3A4A78;  // dim blue for always-on
 
     // Yellow legal pad variant (PaperStyle 1).
-    private const C_PAPER_LEGAL    = 0xF7E9B8;
-    private const C_HOLE_RIM_LEGAL = 0xB8AE8C;
+    private const C_PAPER_LEGAL    = 0xF6DE7A;
+    private const C_HOLE_RIM_LEGAL = 0xB0A05C;
 
     // Rule spacing on the 454 base grid.
     private const RULE_SPACING = 38;
@@ -112,7 +112,9 @@ class NotebookView extends WatchUi.WatchFace {
     private function propNum(id as String, dflt as Number) as Number {
         var v = Application.Properties.getValue(id);
         if (v instanceof Lang.Number) { return v; }
+        if (v instanceof Lang.Long) { return (v as Long).toNumber(); }
         if (v instanceof Lang.Float) { return v.toNumber(); }
+        if (v instanceof Lang.Double) { return (v as Double).toNumber(); }
         if (v instanceof Lang.String) {
             var n = (v as String).toNumber();
             if (n != null) { return n; }
