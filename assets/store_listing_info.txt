@@ -1,0 +1,85 @@
+========================================================================
+GARMIN CONNECT IQ STORE LISTING INFO - PASSED NOTE WATCH FACE
+========================================================================
+
+------------------------------------------------------------------------
+FIELD: Title (Max 50 characters)
+------------------------------------------------------------------------
+Passed Note — Handwritten Class Note Watch Face
+
+(Alternates: "Passed Note — Notebook Paper Watch Face" /
+ "Passed Note: A Note Passed To You In Class")
+
+
+------------------------------------------------------------------------
+FIELD: Description (Max 4000 characters)
+------------------------------------------------------------------------
+Passed Note turns your watch into a note somebody slipped you in class. The screen is a scrap of lined notebook filler paper — light-blue rules, a red margin line, punch holes hugging the left curve — and everything on it is handwritten in a different kid's handwriting: blue and black ballpoint, with the occasional red gel pen. Every line of writing sits right on the notebook rules, like the real thing.
+
+FEATURES & DETAILS
+• FOUR REAL HANDWRITINGS: The date is printed neatly in black pen, the time is written HUGE in loopy script with an emphatic squiggle underline, the stats are quick scrawl and someone else's cursive — four genuine handwriting typefaces, baked into crisp bitmap fonts sized for your exact screen.
+• DOODLED LIVE WEATHER: Between the date and the time, the day's weather is sketched in pen strokes — a sun, sun-behind-cloud, cloud, rain, snowflake, or a storm cloud with a red lightning bolt — matching the live conditions, with the temperature beside it and the condition word ("sorta sunny", "rainy", "storms!") in blue cursive underneath.
+• YOUR STATS, WRITTEN LIKE NOTES: Steps in a quick black scrawl with your heart rate doodled in red beside a little heart; device battery in blue cursive next to your Body Battery ("energy: 87%"); calories and your phone's notification count ("3 msgs!") squeezed onto the last rule.
+• NOTEBOOK PAPER, DRAWN FOR YOUR SCREEN: The paper, rules, margin, punch holes, squiggles, and doodles are all drawn procedurally and scaled to your panel — no stretched bitmaps, crisp on every case size.
+• GRACEFUL WHEN DATA IS MISSING: Weather, Body Battery, and heart rate hide cleanly when your watch has no data — the note just gets a little shorter.
+
+PICK YOUR PEN & PAPER (SETTINGS)
+• Time Pen — was the time written in blue ballpoint, black ballpoint, or red gel pen?
+• Paper — classic white notebook filler paper, or a yellow legal pad.
+• Show Weather — toggle the doodled weather block.
+• Show Heart Rate — toggle the heart doodle and pulse.
+
+ALWAYS-ON FRIENDLY
+On AMOLED watches the always-on display switches to a burn-in-safe page — a black screen with just the time in dim ink, nudged a few pixels each minute. MIP / Solar panels always show the full note.
+
+PRIVACY
+Passed Note uses only the SensorHistory permission to read Body Battery. It does not collect or transmit any data off your watch.
+
+SUPPORTED DEVICES
+Connect IQ 4.0+ round Garmin watches — Forerunner (165, 255, 265, 570, 955, 965, 970), fenix 7/8 (incl. Solar) & fenix E, epix 2 / Pro, enduro 3, Venu 2/3 (& Venu 4), Vivoactive 5/6, AMOLED Instinct 3 / Crossover, plus Approach (golf), Descent (dive), D2 (aviation), and MARQ specialty watches. Monochrome MIP Instincts and square/rectangular panels are not supported — white paper with blue and black ink needs a round colour display.
+
+Check yes if you like it. ☑
+
+
+------------------------------------------------------------------------
+FIELD: What's New in this Version (Max 4000 characters)
+------------------------------------------------------------------------
+Version 1.0.0 — Initial Release
+
+Somebody left this on your desk. 📝
+
+• Lined notebook filler paper drawn procedurally — blue rules, red margin, punch holes — scaled to every Connect IQ 4.0+ round panel.
+• Everything handwritten in a different kid's handwriting: the date printed neatly in black, the time HUGE in loopy blue script with a squiggle underline, stats in quick scrawl and borrowed cursive, with red-pen highlights.
+• DOODLED LIVE WEATHER: a pen-sketch icon that changes with the real conditions (sun / partly / cloud / rain / snow / storm with red lightning), plus the temperature and the day's condition word.
+• Steps, heart rate (with a doodled red heart), device battery, Body Battery ("energy: 87%"), calories, and your notification count — each written onto its own rule.
+• Settings: choose your time pen (blue / black / red), your paper (white notebook or yellow legal pad), and toggle the weather and heart rate.
+• Burn-in-safe AMOLED always-on mode — black page, dim ink time, shifted each minute.
+
+Pass it on!
+
+
+------------------------------------------------------------------------
+FIELD: Settings (Select Yes/No as indicated)
+------------------------------------------------------------------------
+Category: Watch Faces
+Subcategory: Digital
+ANT+ Profiles: No
+Regional Limits: No
+Monetization: No
+Do you collect personal or sensitive data?: No
+Is this app designed for a specific company or event?: No
+
+
+------------------------------------------------------------------------
+ASSET CHEAT SHEET (store upload)
+------------------------------------------------------------------------
+App icon (24-bit):    assets/app_icon_24bit.png    128x128 PNG
+App icon (64-color):  assets/app_icon_64color.png  128x128 PNG (quantized)
+Cover / screenshot:   assets/cover_image.png|.jpg  500x500
+Hero banner:          assets/hero_image.png        1440x720
+Extra screenshot:     assets/screen_active.png     454x454 (raw sim capture)
+
+Regenerate after any visual change:
+    powershell -File savescreenshot.ps1   (fresh sim capture)
+    python tools/gen_assets.py            (rebuilds icon/cover/hero)
+========================================================================
