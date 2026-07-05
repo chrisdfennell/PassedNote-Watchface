@@ -1,0 +1,13 @@
+<properties>
+    <!-- Which pen wrote the time (and its squiggle). 0=blue 1=black 2=red -->
+    <property id="TimeInk" type="number">0</property>
+
+    <!-- Paper style. 0=white filler paper 1=yellow legal pad -->
+    <property id="PaperStyle" type="number">0</property>
+
+    <!-- Show the weather block between the date and the time -->
+    <property id="ShowWeather" type="boolean">true</property>
+
+    <!-- Show the doodled heart + heart rate beside the steps -->
+    <property id="ShowHeartRate" type="boolean">true</property>
+</properties>

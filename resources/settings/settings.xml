@@ -1,0 +1,28 @@
+<settings>
+    <!-- Which pen wrote the time -->
+    <setting propertyKey="@Properties.TimeInk" title="@Strings.TimeInkTitle" prompt="@Strings.TimeInkPrompt">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.InkBlue</listEntry>
+            <listEntry value="1">@Strings.InkBlack</listEntry>
+            <listEntry value="2">@Strings.InkRed</listEntry>
+        </settingConfig>
+    </setting>
+
+    <!-- Paper style -->
+    <setting propertyKey="@Properties.PaperStyle" title="@Strings.PaperStyleTitle" prompt="@Strings.PaperStylePrompt">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.PaperWhite</listEntry>
+            <listEntry value="1">@Strings.PaperLegal</listEntry>
+        </settingConfig>
+    </setting>
+
+    <!-- Toggle the weather block -->
+    <setting propertyKey="@Properties.ShowWeather" title="@Strings.ShowWeatherTitle" prompt="@Strings.ShowWeatherPrompt">
+        <settingConfig type="boolean" />
+    </setting>
+
+    <!-- Toggle the heart rate doodle -->
+    <setting propertyKey="@Properties.ShowHeartRate" title="@Strings.ShowHeartRateTitle" prompt="@Strings.ShowHeartRatePrompt">
+        <settingConfig type="boolean" />
+    </setting>
+</settings>

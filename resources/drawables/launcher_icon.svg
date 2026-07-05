@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+    <!-- Passed Note launcher icon: a scrap of lined notebook paper with a
+         folded corner and a little red doodle heart. -->
+    <rect x="4" y="3" width="32" height="34" rx="2" fill="#FDFBF2" stroke="#B9B4A4" stroke-width="1"/>
+    <!-- folded corner -->
+    <path d="M28 3 L36 11 L28 11 Z" fill="#E4DFCE" stroke="#B9B4A4" stroke-width="1"/>
+    <!-- blue rule lines -->
+    <g stroke="#9EC7E8" stroke-width="1">
+        <line x1="6" y1="13" x2="34" y2="13"/>
+        <line x1="6" y1="18" x2="34" y2="18"/>
+        <line x1="6" y1="23" x2="34" y2="23"/>
+        <line x1="6" y1="28" x2="34" y2="28"/>
+        <line x1="6" y1="33" x2="34" y2="33"/>
+    </g>
+    <!-- red margin -->
+    <line x1="10" y1="4" x2="10" y2="36" stroke="#E87878" stroke-width="1"/>
+    <!-- scribbled "hi" in blue pen -->
+    <path d="M14 22 L14 15 M14 19 Q16 16 17 19 L17 22 M20 22 L20 18 M20 16 L20 15.2"
+          stroke="#1B3E9E" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <!-- red doodle heart -->
+    <path d="M27 27 C25 24.5 22 26 23 28.5 C23.7 30.3 27 32.5 27 32.5 C27 32.5 30.3 30.3 31 28.5 C32 26 29 24.5 27 27 Z"
+          fill="#D8375A"/>
+</svg>

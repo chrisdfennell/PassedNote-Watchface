@@ -1,0 +1,16 @@
+info face="note_time" size=104 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=166 base=114 scaleW=128 scaleH=1024 pages=1 packed=0 alphaChnl=1 redChnl=4 greenChnl=4 blueChnl=4
+page id=0 file="note_time.png"
+chars count=11
+char id=48 x=2 y=2 width=76 height=71 xoffset=0 yoffset=45 xadvance=76 page=0 chnl=15
+char id=49 x=2 y=75 width=76 height=73 xoffset=0 yoffset=43 xadvance=76 page=0 chnl=15
+char id=50 x=2 y=150 width=76 height=74 xoffset=0 yoffset=45 xadvance=76 page=0 chnl=15
+char id=51 x=2 y=226 width=76 height=68 xoffset=0 yoffset=47 xadvance=76 page=0 chnl=15
+char id=52 x=2 y=296 width=76 height=76 xoffset=0 yoffset=42 xadvance=76 page=0 chnl=15
+char id=53 x=2 y=374 width=81 height=70 xoffset=0 yoffset=46 xadvance=76 page=0 chnl=15
+char id=54 x=2 y=446 width=76 height=69 xoffset=0 yoffset=45 xadvance=76 page=0 chnl=15
+char id=55 x=2 y=517 width=76 height=70 xoffset=0 yoffset=46 xadvance=76 page=0 chnl=15
+char id=56 x=2 y=589 width=76 height=69 xoffset=0 yoffset=47 xadvance=76 page=0 chnl=15
+char id=57 x=2 y=660 width=76 height=68 xoffset=0 yoffset=46 xadvance=76 page=0 chnl=15
+char id=58 x=80 y=660 width=31 height=52 xoffset=0 yoffset=62 xadvance=31 page=0 chnl=15
+kernings count=0

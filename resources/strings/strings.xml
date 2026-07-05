@@ -1,0 +1,21 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">Passed Note</string>
+
+    <!-- Settings -->
+    <string id="TimeInkTitle">Time Pen</string>
+    <string id="TimeInkPrompt">Which pen wrote the big time?</string>
+    <string id="InkBlue">🖊 Blue ballpoint</string>
+    <string id="InkBlack">✒ Black ballpoint</string>
+    <string id="InkRed">❤ Red gel pen</string>
+
+    <string id="PaperStyleTitle">Paper</string>
+    <string id="PaperStylePrompt">What kind of paper was the note written on?</string>
+    <string id="PaperWhite">📄 Notebook paper</string>
+    <string id="PaperLegal">📒 Yellow legal pad</string>
+
+    <string id="ShowWeatherTitle">Show Weather</string>
+    <string id="ShowWeatherPrompt">Show the doodled weather and temperature between the date and the time.</string>
+
+    <string id="ShowHeartRateTitle">Show Heart Rate</string>
+    <string id="ShowHeartRatePrompt">Show the doodled heart and your pulse beside the steps.</string>
+</strings>
