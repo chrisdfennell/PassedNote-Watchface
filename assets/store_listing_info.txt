@@ -44,6 +44,17 @@ Check yes if you like it. ☑
 ------------------------------------------------------------------------
 FIELD: What's New in this Version (Max 4000 characters)
 ------------------------------------------------------------------------
+Version 1.0.1 — Neater handwriting
+
+Small layout fixes so every line stays on the page:
+• Calories and messages no longer clip at the bottom curve of the screen — the stats moved up a rule, and the notification count got the short last line to itself.
+• The battery line no longer overlaps the bottom punch hole.
+• Body Battery ("energy") no longer runs off the right edge.
+• Settings apply more reliably (paper style and time pen).
+
+Pass it on!
+
+
 Version 1.0.0 — Initial Release
 
 Somebody left this on your desk. 📝

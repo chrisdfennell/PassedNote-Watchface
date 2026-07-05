@@ -4,6 +4,23 @@ All notable changes to Passed Note are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-07-05
+
+Layout and settings fixes from the first day on the wrist.
+
+### Fixed
+- **Calories clipped at the bottom curve**: the data lines below the time moved
+  up one rule, so the last line no longer sits where the round screen is too
+  narrow for a real calorie count.
+- **Battery overlapping the bottom punch hole**: the battery line now starts at
+  the red margin instead of being centered into the hole.
+- **Body Battery clipped at the right edge**: "energy" moved down beside the
+  calories, centered on a wide rule; the notification count got the narrow
+  last rule to itself.
+- **Settings robustness**: property reads now tolerate numbers arriving as
+  strings/booleans from the settings editor (paper style / time pen could
+  fail to apply).
+
 ## [1.0.0] - 2026-07-05
 
 Initial release. 📝

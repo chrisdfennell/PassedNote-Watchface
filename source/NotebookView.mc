@@ -94,20 +94,37 @@ class NotebookView extends WatchUi.WatchFace {
     function loadSettings() as Void {
         try {
             if (Application has :Properties) {
-                var timeInk = Application.Properties.getValue("TimeInk");
-                var paper = Application.Properties.getValue("PaperStyle");
-                var weather = Application.Properties.getValue("ShowWeather");
-                var hr = Application.Properties.getValue("ShowHeartRate");
-                if (timeInk != null) { mTimeInk = timeInk; }
-                if (paper != null) { mPaperStyle = paper; }
-                if (weather != null) { mShowWeather = weather; }
-                if (hr != null) { mShowHr = hr; }
+                mTimeInk = propNum("TimeInk", mTimeInk);
+                mPaperStyle = propNum("PaperStyle", mPaperStyle);
+                mShowWeather = propBool("ShowWeather", mShowWeather);
+                mShowHr = propBool("ShowHeartRate", mShowHr);
             }
         } catch (e) {
             // keep defaults
         }
         if (mTimeInk < 0 || mTimeInk > 2) { mTimeInk = 0; }
         if (mPaperStyle < 0 || mPaperStyle > 1) { mPaperStyle = 0; }
+    }
+
+    // Property readers tolerant of the value type the settings editor hands
+    // back (numbers can arrive as strings, booleans as 0/1).
+    private function propNum(id as String, dflt as Number) as Number {
+        var v = Application.Properties.getValue(id);
+        if (v instanceof Lang.Number) { return v; }
+        if (v instanceof Lang.Float) { return v.toNumber(); }
+        if (v instanceof Lang.String) {
+            var n = (v as String).toNumber();
+            if (n != null) { return n; }
+        }
+        if (v instanceof Lang.Boolean) { return (v as Boolean) ? 1 : 0; }
+        return dflt;
+    }
+
+    private function propBool(id as String, dflt as Boolean) as Boolean {
+        var v = Application.Properties.getValue(id);
+        if (v instanceof Lang.Boolean) { return v; }
+        if (v instanceof Lang.Number) { return (v as Number) != 0; }
+        return dflt;
     }
 
     // The pen chosen for the big time, and its dim always-on counterpart.
@@ -246,59 +263,57 @@ class NotebookView extends WatchUi.WatchFace {
         // with an emphatic squiggle underline.
         var ink = timeInkColor();
         writeOn(dc, mFontTime, ASC_TIME, timeStr, mCenterX, s(266), Graphics.TEXT_JUSTIFY_CENTER, ink);
-        drawSquiggle(dc, mCenterX - s(112), mCenterX + s(112), s(284), s(4), ink);
+        drawSquiggle(dc, mCenterX - s(112), mCenterX + s(112), s(276), s(4), ink);
 
-        // Stats, each in a different kid's handwriting.
+        // Stats, each in a different kid's handwriting. They hug the time so
+        // the last line stays on a wide rule - the bottom curve is too narrow
+        // for a real calorie count.
 
         // steps in quick black scrawl (Ink Free), heart rate doodled in red
-        // beside them, rule 9
+        // beside them, rule 8
         writeOn(dc, mFontBody, ASC_BODY, "steps: " + formatSteps(getSteps()),
-                s(104), s(342), Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
+                s(104), s(304), Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
         if (mShowHr) {
             var hr = getHeartRate();
             var hrStr = (hr == null) ? "--" : hr.toString();
-            drawHeart(dc, s(340), s(330), s(10), C_INK_RED);
-            writeOn(dc, mFontBody, ASC_BODY, hrStr, s(358), s(342), Graphics.TEXT_JUSTIFY_LEFT, C_INK_RED);
+            drawHeart(dc, s(340), s(292), s(10), C_INK_RED);
+            writeOn(dc, mFontBody, ASC_BODY, hrStr, s(358), s(304), Graphics.TEXT_JUSTIFY_LEFT, C_INK_RED);
         }
 
-        // battery + Body Battery share rule 10, then calories and unread
-        // messages squeeze onto the last rule.
-        drawEnergyLine(dc, s(380));
-        drawBottomLine(dc, s(418));
+        // battery alone on rule 9, Body Battery + calories on rule 10, and
+        // the short msgs note tucked onto the narrow last rule.
+        writeOn(dc, mFontSmall, ASC_SMALL, "batt: " + getBattery() + "%",
+                s(104), s(342), Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
+        drawEnergyCalsLine(dc, s(380));
+        drawMsgsLine(dc, s(418));
     }
 
-    // Rule 10: device battery in blue cursive, Body Battery in black scrawl,
-    // centered together. Body Battery is skipped when the device has no data.
-    private function drawEnergyLine(dc as Dc, ruleY as Number) as Void {
-        var battStr = "batt: " + getBattery() + "%";
+    // Rule 10: Body Battery in black scrawl and calories in blue cursive,
+    // centered together (this rule sits below the bottom punch hole, so
+    // centering can't collide with it and keeps the pair clear of the round
+    // edge). Body Battery is skipped when the device has no data.
+    private function drawEnergyCalsLine(dc as Dc, ruleY as Number) as Void {
+        var calStr = formatSteps(getCalories()) + " cals";
+        var calW = dc.getTextWidthInPixels(calStr, mFontSmall as Graphics.FontType);
         var bb = getBodyBattery();
         if (bb == null) {
-            writeOn(dc, mFontSmall, ASC_SMALL, battStr, mCenterX, ruleY,
+            writeOn(dc, mFontSmall, ASC_SMALL, calStr, mCenterX, ruleY,
                     Graphics.TEXT_JUSTIFY_CENTER, C_INK_BLUE);
             return;
         }
         var bbStr = "energy: " + bb.toString() + "%";
-        var gap = s(20);
-        var battW = dc.getTextWidthInPixels(battStr, mFontSmall as Graphics.FontType);
         var bbW = dc.getTextWidthInPixels(bbStr, mFontBody as Graphics.FontType);
-        var x = mCenterX - (battW + gap + bbW) / 2;
-        writeOn(dc, mFontSmall, ASC_SMALL, battStr, x, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
-        writeOn(dc, mFontBody, ASC_BODY, bbStr, x + battW + gap, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
+        var x = mCenterX - (bbW + s(18) + calW) / 2;
+        writeOn(dc, mFontBody, ASC_BODY, bbStr, x, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
+        writeOn(dc, mFontSmall, ASC_SMALL, calStr, x + bbW + s(18), ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
     }
 
-    // Last rule of the note: "1,850 cals" in blue cursive and the phone's
-    // notification count in red pen, centered together on the rule.
-    private function drawBottomLine(dc as Dc, ruleY as Number) as Void {
-        var calStr = formatSteps(getCalories()) + " cals";
+    // Last (narrow) rule: just the phone's notification count in red pen,
+    // centered - the only string short enough for the bottom curve.
+    private function drawMsgsLine(dc as Dc, ruleY as Number) as Void {
         var msgs = System.getDeviceSettings().notificationCount;
         var msgStr = (msgs == null || msgs == 0) ? "no msgs" : msgs.toString() + " msgs!";
-
-        var gap = s(18);
-        var calW = dc.getTextWidthInPixels(calStr, mFontSmall as Graphics.FontType);
-        var msgW = dc.getTextWidthInPixels(msgStr, mFontSmall as Graphics.FontType);
-        var x = mCenterX - (calW + gap + msgW) / 2;
-        writeOn(dc, mFontSmall, ASC_SMALL, calStr, x, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
-        writeOn(dc, mFontSmall, ASC_SMALL, msgStr, x + calW + gap, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_RED);
+        writeOn(dc, mFontSmall, ASC_SMALL, msgStr, mCenterX, ruleY, Graphics.TEXT_JUSTIFY_CENTER, C_INK_RED);
     }
 
     // Weather between the date and the time, two rules: the doodled icon
