@@ -20,13 +20,14 @@ import Toybox.Application;
 //   - Every element is "written" in a different kid's handwriting, in blue or
 //     black ballpoint (bitmap fonts baked from Segoe Script, Segoe Print, and
 //     Ink Free by tools/gen_fonts.py):
-//       date  "friday, jul 4"       neat printing, black pen
+//       date  "friday, jul 4"                     neat printing, black pen
 //       wx    doodled dynamic icon + "74°", condition word on the rule below
 //       time  big loopy script, blue pen, with a squiggle underline
-//       steps "steps: 8,432"        quick scrawl, black pen, heart rate
-//             doodled in red beside them
-//       batt  "batt: 82%" cursive blue + "energy: 87%" (Body Battery) black
-//       plus calories + notification count on the last rule
+//   - Below the time, everything is centered, grouped by category with one
+//     pen per category:
+//       activity  "steps: 8,432 ♥80" then "cals: 1,850"   black scrawl
+//       power     "batt: 82%" + "3 msgs!" in red, then "energy: 87%" on the
+//                 short last rule                          blue cursive
 //
 // Text baselines sit ON the notebook rules (like real handwriting) using the
 // per-font ascent ratios measured from the generated .fnt metrics.
@@ -253,8 +254,8 @@ class NotebookView extends WatchUi.WatchFace {
                       months[(today.month as Number) - 1] + " " + today.day;
         writeOn(dc, mFontDate, ASC_DATE, dateStr, mCenterX, s(76), Graphics.TEXT_JUSTIFY_CENTER, C_INK_BLACK);
 
-        // Weather, split across the two rules between the date and the time:
-        // doodled icon + temperature, then the day's condition word.
+        // Weather on the two rules between the date and the time: doodled
+        // icon + temperature, then the day's condition word.
         if (mShowWeather) {
             drawWeather(dc, s(114), s(152));
         }
@@ -265,61 +266,60 @@ class NotebookView extends WatchUi.WatchFace {
         writeOn(dc, mFontTime, ASC_TIME, timeStr, mCenterX, s(266), Graphics.TEXT_JUSTIFY_CENTER, ink);
         drawSquiggle(dc, mCenterX - s(112), mCenterX + s(112), s(276), s(4), ink);
 
-        // Stats, each in a different kid's handwriting. They hug the time so
-        // the last line stays on a wide rule - the bottom curve is too narrow
-        // for a real calorie count.
-
-        // steps in quick black scrawl (Ink Free), heart rate doodled in red
-        // beside them, rule 8
-        writeOn(dc, mFontBody, ASC_BODY, "steps: " + formatSteps(getSteps()),
-                s(104), s(304), Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
-        if (mShowHr) {
-            var hr = getHeartRate();
-            var hrStr = (hr == null) ? "--" : hr.toString();
-            drawHeart(dc, s(340), s(292), s(10), C_INK_RED);
-            writeOn(dc, mFontBody, ASC_BODY, hrStr, s(358), s(304), Graphics.TEXT_JUSTIFY_LEFT, C_INK_RED);
+        // Below the time everything is centered, grouped by category with
+        // one pen per category: activity in black scrawl (steps + pulse,
+        // then calories), power in blue cursive (battery - with the phone
+        // note in red beside it - then Body Battery on the short last rule).
+        drawStepsLine(dc, s(304));
+        writeOn(dc, mFontBody, ASC_BODY, "cals: " + formatSteps(getCalories()),
+                mCenterX, s(342), Graphics.TEXT_JUSTIFY_CENTER, C_INK_BLACK);
+        drawBattMsgsLine(dc, s(380));
+        var bb = getBodyBattery();
+        if (bb != null) {
+            writeOn(dc, mFontSmall, ASC_SMALL, "energy: " + bb.toString() + "%",
+                    mCenterX, s(418), Graphics.TEXT_JUSTIFY_CENTER, C_INK_BLUE);
         }
-
-        // battery alone on rule 9, Body Battery + calories on rule 10, and
-        // the short msgs note tucked onto the narrow last rule.
-        writeOn(dc, mFontSmall, ASC_SMALL, "batt: " + getBattery() + "%",
-                s(104), s(342), Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
-        drawEnergyCalsLine(dc, s(380));
-        drawMsgsLine(dc, s(418));
     }
 
-    // Rule 10: Body Battery in black scrawl and calories in blue cursive,
-    // centered together (this rule sits below the bottom punch hole, so
-    // centering can't collide with it and keeps the pair clear of the round
-    // edge). Body Battery is skipped when the device has no data.
-    private function drawEnergyCalsLine(dc as Dc, ruleY as Number) as Void {
-        var calStr = formatSteps(getCalories()) + " cals";
-        var calW = dc.getTextWidthInPixels(calStr, mFontSmall as Graphics.FontType);
-        var bb = getBodyBattery();
-        if (bb == null) {
-            writeOn(dc, mFontSmall, ASC_SMALL, calStr, mCenterX, ruleY,
-                    Graphics.TEXT_JUSTIFY_CENTER, C_INK_BLUE);
+    // Rule 8: steps in black scrawl with the pulse doodled in red beside a
+    // little heart, the whole block centered.
+    private function drawStepsLine(dc as Dc, ruleY as Number) as Void {
+        var stepsStr = "steps: " + formatSteps(getSteps());
+        if (!mShowHr) {
+            writeOn(dc, mFontBody, ASC_BODY, stepsStr, mCenterX, ruleY,
+                    Graphics.TEXT_JUSTIFY_CENTER, C_INK_BLACK);
             return;
         }
-        var bbStr = "energy: " + bb.toString() + "%";
-        var bbW = dc.getTextWidthInPixels(bbStr, mFontBody as Graphics.FontType);
-        var x = mCenterX - (bbW + s(18) + calW) / 2;
-        writeOn(dc, mFontBody, ASC_BODY, bbStr, x, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
-        writeOn(dc, mFontSmall, ASC_SMALL, calStr, x + bbW + s(18), ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
+        var hr = getHeartRate();
+        var hrStr = (hr == null) ? "--" : hr.toString();
+        var stepsW = dc.getTextWidthInPixels(stepsStr, mFontBody as Graphics.FontType);
+        var hrW = dc.getTextWidthInPixels(hrStr, mFontBody as Graphics.FontType);
+        var heartW = s(22);
+        var x = mCenterX - (stepsW + s(16) + heartW + hrW) / 2;
+        writeOn(dc, mFontBody, ASC_BODY, stepsStr, x, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLACK);
+        drawHeart(dc, x + stepsW + s(16) + s(10), ruleY - s(12), s(10), C_INK_RED);
+        writeOn(dc, mFontBody, ASC_BODY, hrStr, x + stepsW + s(16) + heartW, ruleY,
+                Graphics.TEXT_JUSTIFY_LEFT, C_INK_RED);
     }
 
-    // Last (narrow) rule: just the phone's notification count in red pen,
-    // centered - the only string short enough for the bottom curve.
-    private function drawMsgsLine(dc as Dc, ruleY as Number) as Void {
+    // Rule 10: device battery in blue cursive with the phone's notification
+    // count jotted in red beside it, the pair centered (this rule sits below
+    // the bottom punch hole, so centering is safe at any value).
+    private function drawBattMsgsLine(dc as Dc, ruleY as Number) as Void {
+        var battStr = "batt: " + getBattery() + "%";
         var msgs = System.getDeviceSettings().notificationCount;
         var msgStr = (msgs == null || msgs == 0) ? "no msgs" : msgs.toString() + " msgs!";
-        writeOn(dc, mFontSmall, ASC_SMALL, msgStr, mCenterX, ruleY, Graphics.TEXT_JUSTIFY_CENTER, C_INK_RED);
+        var battW = dc.getTextWidthInPixels(battStr, mFontSmall as Graphics.FontType);
+        var msgW = dc.getTextWidthInPixels(msgStr, mFontSmall as Graphics.FontType);
+        var x = mCenterX - (battW + s(18) + msgW) / 2;
+        writeOn(dc, mFontSmall, ASC_SMALL, battStr, x, ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_BLUE);
+        writeOn(dc, mFontSmall, ASC_SMALL, msgStr, x + battW + s(18), ruleY, Graphics.TEXT_JUSTIFY_LEFT, C_INK_RED);
     }
 
-    // Weather between the date and the time, two rules: the doodled icon
-    // (dynamic, matches the conditions) + temperature in neat black printing,
-    // then the condition word in blue cursive on the rule below. Skipped when
-    // the watch has no weather data.
+    // Weather on the two rules between the date and the time: the doodled
+    // icon (dynamic, matches the conditions) + temperature in neat black
+    // printing, then the condition word in blue cursive on the rule below.
+    // Skipped when the watch has no weather data.
     private function drawWeather(dc as Dc, ruleY1 as Number, ruleY2 as Number) as Void {
         var wx = getWeather();
         if (wx == null) {

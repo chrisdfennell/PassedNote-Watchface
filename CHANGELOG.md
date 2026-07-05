@@ -4,6 +4,20 @@ All notable changes to Passed Note are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-07-05
+
+The layout settles down.
+
+### Changed
+- **One thought per line**: below the time everything is centered and grouped
+  by category — steps with the pulse doodled beside them, calories, battery
+  (with the phone's message count jotted in red beside it), and Body Battery
+  on the short last rule. Weather keeps its two lines: doodled icon +
+  temperature, condition word underneath.
+- Every line now fits its rule at any realistic value — nothing can reach the
+  round edge or the punch holes.
+- Refreshed the store artwork (icon / cover / hero) to match the final layout.
+
 ## [1.0.1] - 2026-07-05
 
 Layout and settings fixes from the first day on the wrist.

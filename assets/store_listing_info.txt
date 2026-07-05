@@ -44,6 +44,16 @@ Check yes if you like it. ☑
 ------------------------------------------------------------------------
 FIELD: What's New in this Version (Max 4000 characters)
 ------------------------------------------------------------------------
+Version 1.0.2 — One thought per line
+
+The note got tidier:
+• Below the time everything is centered and grouped — steps with your pulse beside them, calories, battery with your message count jotted in red, and Body Battery on the last line.
+• The weather keeps its two lines: the doodled icon + temperature, with the condition word written underneath.
+• Every line now fits its rule at any value — nothing runs off the round edge or into the punch holes.
+
+Pass it on!
+
+
 Version 1.0.1 — Neater handwriting
 
 Small layout fixes so every line stays on the page:
