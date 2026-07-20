@@ -4,6 +4,14 @@ All notable changes to Passed Note are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-07-20
+
+### Added
+- **Time Size setting** (Normal / Large / Huge): write the time bigger on the
+  page. Sizes are tuned so the centered time still clears the middle punch hole
+  on every panel, so all three holes stay. `tools/gen_fonts.py` bakes two extra
+  digit-only time fonts per resolution; the face loads only the selected one.
+
 ## [1.0.3] - 2026-07-05
 
 ### Fixed
