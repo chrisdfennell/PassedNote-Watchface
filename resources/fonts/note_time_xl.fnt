@@ -1,0 +1,16 @@
+info face="note_time_xl" size=112 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=178 base=122 scaleW=128 scaleH=1024 pages=1 packed=0 alphaChnl=1 redChnl=4 greenChnl=4 blueChnl=4
+page id=0 file="note_time_xl.png"
+chars count=11
+char id=48 x=2 y=2 width=82 height=76 xoffset=0 yoffset=48 xadvance=82 page=0 chnl=15
+char id=49 x=2 y=80 width=82 height=78 xoffset=0 yoffset=46 xadvance=82 page=0 chnl=15
+char id=50 x=2 y=160 width=82 height=79 xoffset=0 yoffset=48 xadvance=82 page=0 chnl=15
+char id=51 x=2 y=241 width=82 height=73 xoffset=0 yoffset=50 xadvance=82 page=0 chnl=15
+char id=52 x=2 y=316 width=82 height=82 xoffset=0 yoffset=44 xadvance=82 page=0 chnl=15
+char id=53 x=2 y=400 width=87 height=75 xoffset=0 yoffset=49 xadvance=82 page=0 chnl=15
+char id=54 x=2 y=477 width=82 height=74 xoffset=0 yoffset=48 xadvance=82 page=0 chnl=15
+char id=55 x=2 y=553 width=82 height=75 xoffset=0 yoffset=49 xadvance=82 page=0 chnl=15
+char id=56 x=2 y=630 width=82 height=74 xoffset=0 yoffset=50 xadvance=82 page=0 chnl=15
+char id=57 x=2 y=706 width=82 height=73 xoffset=0 yoffset=49 xadvance=82 page=0 chnl=15
+char id=58 x=86 y=706 width=33 height=56 xoffset=0 yoffset=66 xadvance=33 page=0 chnl=15
+kernings count=0

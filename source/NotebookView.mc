@@ -85,6 +85,11 @@ class NotebookView extends WatchUi.WatchFace {
     private var mPaperStyle as Number = 0;      // 0=white filler 1=yellow legal
     private var mShowWeather as Boolean = true;
     private var mShowHr as Boolean = true;
+    private var mTimeSize as Number = 0;        // 0=normal 1=large 2=huge
+
+    // The time size actually loaded into mFontTime, so applyTimeFont() only hits
+    // loadResource when the setting really changed (it can fire from onUpdate).
+    private var mLoadedTimeSize as Number = -1;
 
     function initialize() {
         WatchFace.initialize();
@@ -99,12 +104,29 @@ class NotebookView extends WatchUi.WatchFace {
                 mPaperStyle = propNum("PaperStyle", mPaperStyle);
                 mShowWeather = propBool("ShowWeather", mShowWeather);
                 mShowHr = propBool("ShowHeartRate", mShowHr);
+                mTimeSize = propNum("TimeSize", mTimeSize);
             }
         } catch (e) {
             // keep defaults
         }
         if (mTimeInk < 0 || mTimeInk > 2) { mTimeInk = 0; }
         if (mPaperStyle < 0 || mPaperStyle > 1) { mPaperStyle = 0; }
+        if (mTimeSize < 0 || mTimeSize > 2) { mTimeSize = 0; }
+        // Swap the time font now if the panel is known (onSettingsChanged path);
+        // before onLayout, applyTimeFont() runs there instead.
+        if (mWidth != 0) { applyTimeFont(); }
+    }
+
+    // Load only the time font the TimeSize setting asks for (normal / large /
+    // huge), so a single, correctly-sized atlas is resident at a time - matters
+    // on memory-tight MIP panels. No-op when the right size is already loaded.
+    private function applyTimeFont() as Void {
+        if (mLoadedTimeSize == mTimeSize && mFontTime != null) { return; }
+        var rez = Rez.Fonts.NoteTime;
+        if (mTimeSize == 1) { rez = Rez.Fonts.NoteTimeLg; }
+        else if (mTimeSize == 2) { rez = Rez.Fonts.NoteTimeXl; }
+        mFontTime = WatchUi.loadResource(rez) as Graphics.FontType;
+        mLoadedTimeSize = mTimeSize;
     }
 
     // Property readers tolerant of the value type the settings editor hands
@@ -152,7 +174,7 @@ class NotebookView extends WatchUi.WatchFace {
         var settings = System.getDeviceSettings();
         mBurnIn = (settings has :requiresBurnInProtection) && settings.requiresBurnInProtection;
 
-        mFontTime = WatchUi.loadResource(Rez.Fonts.NoteTime) as Graphics.FontType;
+        applyTimeFont();
         mFontDate = WatchUi.loadResource(Rez.Fonts.NoteDate) as Graphics.FontType;
         mFontBody = WatchUi.loadResource(Rez.Fonts.NoteBody) as Graphics.FontType;
         mFontSmall = WatchUi.loadResource(Rez.Fonts.NoteSmall) as Graphics.FontType;
@@ -262,11 +284,15 @@ class NotebookView extends WatchUi.WatchFace {
             drawWeather(dc, s(114), s(152));
         }
 
-        // The time, written HUGE in the chosen pen,
-        // with an emphatic squiggle underline.
+        // The time, written HUGE in the chosen pen, with an emphatic squiggle
+        // underline. The baseline stays on its notebook rule (s(266)); the Large
+        // and Huge sizes grow upward into the space above, so everything else
+        // stays put on its own rule. The squiggle tracks the actual time width
+        // so it underlines the whole thing at every size.
         var ink = timeInkColor();
         writeOn(dc, mFontTime, ASC_TIME, timeStr, mCenterX, s(266), Graphics.TEXT_JUSTIFY_CENTER, ink);
-        drawSquiggle(dc, mCenterX - s(112), mCenterX + s(112), s(276), s(4), ink);
+        var halfW = dc.getTextWidthInPixels(timeStr, mFontTime as Graphics.FontType) / 2 + s(6);
+        drawSquiggle(dc, mCenterX - halfW, mCenterX + halfW, s(276), s(4), ink);
 
         // Below the time everything is centered, grouped by category with
         // one pen per category: activity in black scrawl (steps + pulse,

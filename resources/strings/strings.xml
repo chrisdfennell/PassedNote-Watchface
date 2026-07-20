@@ -2,6 +2,12 @@
     <string id="AppName">Passed Note</string>
 
     <!-- Settings -->
+    <string id="TimeSizeTitle">Time Size</string>
+    <string id="TimeSizePrompt">How big is the time written on the note?</string>
+    <string id="SizeNormal">Normal</string>
+    <string id="SizeLarge">Large</string>
+    <string id="SizeHuge">Huge</string>
+
     <string id="TimeInkTitle">Time Pen</string>
     <string id="TimeInkPrompt">Which pen wrote the big time?</string>
     <string id="InkBlue">🖊 Blue ballpoint</string>

@@ -1,4 +1,13 @@
 <settings>
+    <!-- How big the time is written -->
+    <setting propertyKey="@Properties.TimeSize" title="@Strings.TimeSizeTitle" prompt="@Strings.TimeSizePrompt">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.SizeNormal</listEntry>
+            <listEntry value="1">@Strings.SizeLarge</listEntry>
+            <listEntry value="2">@Strings.SizeHuge</listEntry>
+        </settingConfig>
+    </setting>
+
     <!-- Which pen wrote the time -->
     <setting propertyKey="@Properties.TimeInk" title="@Strings.TimeInkTitle" prompt="@Strings.TimeInkPrompt">
         <settingConfig type="list">

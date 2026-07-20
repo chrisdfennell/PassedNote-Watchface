@@ -10,4 +10,7 @@
 
     <!-- Show the doodled heart + heart rate beside the steps -->
     <property id="ShowHeartRate" type="boolean">true</property>
+
+    <!-- How big the time is written. 0=normal 1=large 2=huge -->
+    <property id="TimeSize" type="number">0</property>
 </properties>
